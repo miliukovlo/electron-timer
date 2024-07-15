@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, globalShortcut } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
@@ -6,9 +6,16 @@ import icon from '../../resources/icon.png?asset'
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: 600,
+    height: 400,
+    minHeight: 300,
+    minWidth: 400,
     show: false,
+    //Сделать фон прозрачным
+    transparent: true,
+    // Скрыть фрейм
+    frame: false,
+    //Скрыть меню 
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
@@ -16,6 +23,20 @@ function createWindow(): void {
       sandbox: false
     }
   })
+
+  let toggleOverLayHotkey = "CommandOrControl+6"
+  let isOverLayOn = false
+
+  globalShortcut.register(toggleOverLayHotkey, () => {
+    isOverLayOn = !isOverLayOn
+    mainWindow.setIgnoreMouseEvents(isOverLayOn)
+
+    mainWindow.webContents.send("overlay-mode", isOverLayOn)
+  })
+  // зафиксировать чтобы всегда было поверх других окон
+  mainWindow.setAlwaysOnTop(true, 'screen-saver')
+  // Чтобы автоматически применялось на полный экран
+  // mainWindow.maximize()
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
@@ -50,7 +71,21 @@ app.whenReady().then(() => {
   })
 
   // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
+  // ipcMain.on('ping', () => console.log('pong'))
+
+  ipcMain.on('close-window', () => {
+    const currentWindow = BrowserWindow.getFocusedWindow()
+    if (currentWindow) {
+      currentWindow.close()
+    }
+  })
+
+  ipcMain.on('minimize-window', () => {
+    const currentWindow = BrowserWindow.getFocusedWindow()
+    if (currentWindow) {
+      currentWindow.minimize()
+    }
+  })
 
   createWindow()
 
