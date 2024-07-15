@@ -17,7 +17,7 @@ const TopBar: React.FC<TobBarProps> = ({
 
     return (
         <div className={!isOverlay ? "visible" : "invisible"}>
-            <div className='rounded-t-xl bg-blue-400 w-screen h-5 cursor-pointer' style={{WebkitAppRegion: "drag"}}></div>
+            <div className='rounded-t-xl bg-blue-400 w-screen h-5 cursor-pointer title-drag'></div>
             <div className="bg-blue-400 w-screen h-3">
                 <div id="controlls-button" className='text-stone-200 absolute top-1 right-0 pe-2'>
                     <button id='minimuze' className='p-1' onClick={handleMinimize}>&#128469;</button>

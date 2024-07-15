@@ -12,3 +12,7 @@ button {
 button:hover {
     transform: scale(1.3);
 }
+.title-drag {
+    -webkit-app-region: drag;
+    cursor: grab;
+}
