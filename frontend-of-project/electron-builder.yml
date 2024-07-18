@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: frontend-of-project
+productName: vue-ts
 directories:
   buildResources: build
 files:
@@ -11,8 +11,9 @@ files:
   - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
 asarUnpack:
   - resources/**
+afterSign: build/notarize.js
 win:
-  executableName: frontend-of-project
+  executableName: vue-ts
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
@@ -25,7 +26,6 @@ mac:
     - NSMicrophoneUsageDescription: Application requests access to the device's microphone.
     - NSDocumentsFolderUsageDescription: Application requests access to the user's Documents folder.
     - NSDownloadsFolderUsageDescription: Application requests access to the user's Downloads folder.
-  notarize: false
 dmg:
   artifactName: ${name}-${version}.${ext}
 linux:

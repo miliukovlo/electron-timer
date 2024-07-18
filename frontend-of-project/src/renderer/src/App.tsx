@@ -11,7 +11,7 @@ function App(): JSX.Element {
       setIsOverlay(prevState => !prevState)
     })
 
-    return () => {
+    return (): void => {
       window.electron.ipcRenderer.removeAllListeners("overlay-mode")
     }
   }, [])

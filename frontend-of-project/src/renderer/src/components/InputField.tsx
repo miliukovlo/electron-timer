@@ -3,7 +3,7 @@ import React from 'react';
 interface InputFieldProps {
     label: string,
     value: number,
-    onChange: (e: any) => void,
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     placeholder: string,
     type: 'hours' | 'minutes' | 'seconds'
 }
@@ -16,7 +16,7 @@ const InputField: React.FC<InputFieldProps> = ({
     type
 }: InputFieldProps) => {
 
-    const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         let inputValue = e.target.value;
         if (inputValue === '' || isNaN(parseInt(inputValue))) {
             inputValue = '0';

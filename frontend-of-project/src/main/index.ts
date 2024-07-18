@@ -24,7 +24,7 @@ function createWindow(): void {
     }
   })
 
-  let toggleOverLayHotkey = "CommandOrControl+6"
+  const toggleOverLayHotkey = "CommandOrControl+6"
   let isOverLayOn = false
 
   globalShortcut.register(toggleOverLayHotkey, () => {

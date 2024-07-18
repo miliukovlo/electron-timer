@@ -50,10 +50,10 @@ const Timer: React.FC<TimerProps> = ({isOverlay}: TimerProps) => {
             clearInterval(interval)
         }
     
-        return () => clearInterval(interval)
+        return (): void => clearInterval(interval)
     }, [isActive, hours, minutes, seconds, setHours, setMinutes, setSeconds])
 
-    const edit = () => {
+    const edit = (): void => {
         setIsEditing(false)
     }
     
@@ -66,21 +66,21 @@ const Timer: React.FC<TimerProps> = ({isOverlay}: TimerProps) => {
                     <InputField
                         label='Часы'
                         value={hours}
-                        onChange={(e: any) => {setHours(parseInt(e.target.value))}}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setHours(parseInt(e.target.value))}}
                         placeholder='Час'
                         type='hours'
                     />
                     <InputField
                         label='Минуты'
                         value={minutes}
-                        onChange={(e: any) => {setMinutes(parseInt(e.target.value))}}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setMinutes(parseInt(e.target.value))}}
                         placeholder='Минута'
                         type='minutes'
                     />
                     <InputField
                         label='Секунды'
                         value={seconds}
-                        onChange={(e: any) => {setSeconds(parseInt(e.target.value))}}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setSeconds(parseInt(e.target.value))}}
                         placeholder='Секунда'
                         type='seconds'
                     />
